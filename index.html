@@ -11,25 +11,32 @@
 <script>
     function game() {
 
-       // var secretnumber = Math.floor(Math.random()*10+1);
-        var guessednumber=document.getElementById("value").value;
-        var stillguesing=false;
+        const MIN = 1;
+        const MAX = 10;
 
-        while(!stillguesing){
-            var guess=prompt("Keep guessing");
-            document.write("Your guess:"+guessednumber+ "<br>"+ "That is incorrect. Guess Again.")
-            if(guessednumber==secretnumber){
-                stillguesing=true;
-                alert("correct guess");
-                document.write("Your guess:"+ guessednumber+"<br>"+"That's right! You're a good guesser. ")
+        var secretNumber = Math.floor(Math.random() * (MAX - MIN + 1)) + MIN;
+
+        var guesses = 0; // for storing the number of guesses
+        var hint = ''; // for storing hint
+
+        do {
+            // get input from user
+            var input = prompt(`Please enter a number between ${MIN} and ${MAX}` + hint);
+            // get the integer
+            var number = parseInt(input);
+            // increase the number of guesses
+            guesses++;
+            // check input number with the secret number
+            // provide hint if needed
+            if (number > secretNumber) {
+                hint = ', and less than ' + number;
+            } else if (number < secretNumber) {
+                hint = ', and greater than ' + number;
+            } else if (number == secretNumber) {
+                alert(`Bravo! you're correct after ${guesses} guess(es).`);
             }
-            if(guessednumber!=secretnumber)
-                alert("Wrong");}
-
+        } while (number != secretNumber);
     }
-
-
-
 </script>
 
 </body>
